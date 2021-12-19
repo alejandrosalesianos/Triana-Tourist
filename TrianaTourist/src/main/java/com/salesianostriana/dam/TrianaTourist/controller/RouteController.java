@@ -31,12 +31,29 @@ public class RouteController {
     public ResponseEntity<List<Route>> findAll(){
         return ResponseEntity.ok().body(routeService.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetRouteDto> findOne(@PathVariable Long id) {
+        Route route = routeService.findOne(id).get();
+        return ResponseEntity.ok().body(routeDtoConverter.RouteToGetRouteDto(route));
+    }
+
     @PostMapping("/")
     public ResponseEntity<GetRouteDto> create(@Valid @RequestBody CreateRouteDto dto){
         Route route= routeDtoConverter.CreateRouteDtoToRoute(dto);
         routeService.save(route);
         return ResponseEntity.status(HttpStatus.CREATED).body(routeDtoConverter.RouteToGetRouteDto(route));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        routeService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<GetRouteDto>> edit(@PathVariable Long id, @Valid @RequestBody CreateRouteDto dto){
+        return ResponseEntity.ok().body(routeService.edit(id, dto));
+    }
+
     @PostMapping("/{id}/poi/{id2}")
     public ResponseEntity<GetRouteDto> addPoi(@Valid @PathVariable("id")Long id, @PathVariable("id2")Long id2){
         Route route = routeService.findOne(id).get();

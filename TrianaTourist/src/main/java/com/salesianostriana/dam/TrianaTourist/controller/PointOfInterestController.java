@@ -47,17 +47,7 @@ public class PointOfInterestController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Optional<GetPointOfInterestDto>> edit(@PathVariable Long id, @Valid @RequestBody CreatePointOfInterestDto dto){
-        return ResponseEntity.ok().body(pointOfInterestService.findOne(id).map(nuevo -> {
-            nuevo.setName(dto.getName());
-            nuevo.setLocation(dto.getLocation());
-            nuevo.setDescription(dto.getDescription());
-            nuevo.setCategory(categoryService.findOne(dto.getCategory()).get());
-            nuevo.setCoverPhoto(dto.getCoverPhoto());
-            nuevo.setPhoto2(dto.getPhoto2());
-            nuevo.setPhoto3(dto.getPhoto3());
-            pointOfInterestService.save(nuevo);
-            return pointOfInterestDtoConverter.pointOfInterestToGetPointOfInterestDto(nuevo);
-        }));
+        return ResponseEntity.ok().body(pointOfInterestService.edit(id, dto));
     }
 
 }

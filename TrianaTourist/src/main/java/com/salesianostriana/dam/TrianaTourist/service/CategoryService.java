@@ -1,5 +1,8 @@
 package com.salesianostriana.dam.TrianaTourist.service;
 
+import com.salesianostriana.dam.TrianaTourist.dto.Category.CategoryDtoConverter;
+import com.salesianostriana.dam.TrianaTourist.dto.Category.CreateCategoryDto;
+import com.salesianostriana.dam.TrianaTourist.dto.Category.GetCategoryDto;
 import com.salesianostriana.dam.TrianaTourist.error.excepciones.EntidadNotFoundException;
 import com.salesianostriana.dam.TrianaTourist.error.excepciones.ListEntityNotFound;
 import com.salesianostriana.dam.TrianaTourist.model.Category;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryDtoConverter categoryDtoConverter;
 
     public List<Category> findAll(){
         if (categoryRepository.findAll().isEmpty()){
@@ -39,7 +43,11 @@ public class CategoryService {
     public void save(Category category){
         categoryRepository.save(category);
     }
-    public void edit(Category category){
-        categoryRepository.save(category);
+    public Optional<GetCategoryDto> edit(Long id, CreateCategoryDto dto){
+        return findOne(id).map(nuevo ->{
+            nuevo.setName(dto.getName());
+            save(nuevo);
+            return categoryDtoConverter.CategoryToGetCategoryDto(nuevo);
+        });
     }
 }

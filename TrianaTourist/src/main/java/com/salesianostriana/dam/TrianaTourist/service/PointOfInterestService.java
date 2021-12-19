@@ -1,5 +1,8 @@
 package com.salesianostriana.dam.TrianaTourist.service;
 
+import com.salesianostriana.dam.TrianaTourist.dto.PointOfInterest.CreatePointOfInterestDto;
+import com.salesianostriana.dam.TrianaTourist.dto.PointOfInterest.GetPointOfInterestDto;
+import com.salesianostriana.dam.TrianaTourist.dto.PointOfInterest.PointOfInterestDtoConverter;
 import com.salesianostriana.dam.TrianaTourist.error.excepciones.EntidadNotFoundException;
 import com.salesianostriana.dam.TrianaTourist.error.excepciones.ListEntityNotFound;
 import com.salesianostriana.dam.TrianaTourist.model.PointOfInterest;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class PointOfInterestService {
 
     private final PointOfInterestRepository pointOfInterestRepository;
+    private final CategoryService categoryService;
+    private final PointOfInterestDtoConverter pointOfInterestDtoConverter;
 
     public List<PointOfInterest> findAll(){
         if (pointOfInterestRepository.findAll().isEmpty()){
@@ -40,5 +45,19 @@ public class PointOfInterestService {
 
     public void save (PointOfInterest pointOfInterest){
         pointOfInterestRepository.save(pointOfInterest);
+    }
+
+    public Optional<GetPointOfInterestDto> edit(Long id, CreatePointOfInterestDto dto){
+        return findOne(id).map(nuevo -> {
+            nuevo.setName(dto.getName());
+            nuevo.setLocation(dto.getLocation());
+            nuevo.setDescription(dto.getDescription());
+            nuevo.setCategory(categoryService.findOne(dto.getCategory()).get());
+            nuevo.setCoverPhoto(dto.getCoverPhoto());
+            nuevo.setPhoto2(dto.getPhoto2());
+            nuevo.setPhoto3(dto.getPhoto3());
+            save(nuevo);
+            return pointOfInterestDtoConverter.pointOfInterestToGetPointOfInterestDto(nuevo);
+        });
     }
 }

@@ -46,10 +46,6 @@ public class CategoryController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Optional<GetCategoryDto>> edit(@PathVariable Long id,@Valid @RequestBody CreateCategoryDto dto){
-        return ResponseEntity.ok().body(categoryService.findOne(id).map(nuevo ->{
-            nuevo.setName(dto.getName());
-            categoryService.edit(nuevo);
-            return categoryDtoConverter.CategoryToGetCategoryDto(nuevo);
-        }));
+        return ResponseEntity.ok().body(categoryService.edit(id,dto));
     }
 }

@@ -55,7 +55,6 @@ public class PointOfInterestController {
             nuevo.setCoverPhoto(dto.getCoverPhoto());
             nuevo.setPhoto2(dto.getPhoto2());
             nuevo.setPhoto3(dto.getPhoto3());
-            nuevo.setRoutes(dto.getRoutes());
             pointOfInterestService.save(nuevo);
             return pointOfInterestDtoConverter.pointOfInterestToGetPointOfInterestDto(nuevo);
         }));

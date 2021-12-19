@@ -27,12 +27,11 @@ public class PointOfInterest implements Serializable {
     private String coverPhoto;
     private String photo2;
     private String photo3;
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "POI_id",
-                    foreignKey = @ForeignKey(name = "FK_RUTA_POI")),
-            inverseJoinColumns = @JoinColumn(name = "route_id",
-                    foreignKey = @ForeignKey(name = "FK_RUTA_ROUTE")),
-    name = "ruta")
-    private List<Route> routes;
 
+    public void addToRoute(Route route){
+        route.getPointOfInterestList().add(this);
+    }
+    public void deleteFromRoute(Route route){
+        route.getPointOfInterestList().remove(this);
+    }
 }

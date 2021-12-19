@@ -23,5 +23,5 @@ public class GetPointOfInterestDto {
     private String coverPhoto;
     private String photo2;
     private String photo3;
-    private List<Route> routes;
+
 }

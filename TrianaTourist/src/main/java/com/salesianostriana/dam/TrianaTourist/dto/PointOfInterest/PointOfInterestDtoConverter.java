@@ -24,7 +24,6 @@ public class PointOfInterestDtoConverter {
                 .coverPhoto(createPointOfInterestDto.getCoverPhoto())
                 .photo2(createPointOfInterestDto.getPhoto2())
                 .photo3(createPointOfInterestDto.getPhoto3())
-                .routes(createPointOfInterestDto.getRoutes())
                 .build();
     }
     public GetPointOfInterestDto pointOfInterestToGetPointOfInterestDto (PointOfInterest pointOfInterest){
@@ -38,7 +37,6 @@ public class PointOfInterestDtoConverter {
                .coverPhoto(pointOfInterest.getCoverPhoto())
                .photo2(pointOfInterest.getPhoto2())
                .photo3(pointOfInterest.getPhoto3())
-               .routes(pointOfInterest.getRoutes())
                .build();
     }
 }

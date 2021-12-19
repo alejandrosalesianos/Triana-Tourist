@@ -2,6 +2,7 @@ package com.salesianostriana.dam.TrianaTourist.model;
 
 import com.salesianostriana.dam.TrianaTourist.validation.simple.UniqueName;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Route implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "route_id",
                     foreignKey = @ForeignKey(name = "FK_RUTA_ROUTE")),
             name = "ruta")
+    @UniqueElements
     private List<PointOfInterest> pointOfInterestList;
 
 

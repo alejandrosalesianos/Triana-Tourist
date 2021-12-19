@@ -17,7 +17,7 @@ public class CreatePointOfInterestDto {
 
     @NotBlank
     private String name;
-    @Pattern(regexp = "^([-+]?\\d{1,2}[.]\\d+),\\s*([-+]?\\d{1,3}[.]\\d+)$", message = "OwO")
+    @Pattern(regexp = "^([-+]?\\d{1,2}[.]\\d+),\\s*([-+]?\\d{1,3}[.]\\d+)$")
     private String location;
     private String description;
     private LocalDateTime date;

@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.TrianaTourist.model;
 
+import com.salesianostriana.dam.TrianaTourist.validation.simple.UniquePoiInRoute;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,19 @@ public class PointOfInterest implements Serializable {
     private String photo3;
 
     public void addToRoute(Route route){
+        /*boolean existe;
+        for (int i = 0; i< route.getPointOfInterestList().size();i++ ){
+            if (route.getPointOfInterestList().contains(route.getPointOfInterestList().get(i))){
+                existe= true;
+            }else{
+                existe=false;
+            }
+            if (existe) {
+                route.getPointOfInterestList().add(this);
+            }else {
+                throw new UniquePoiInRoute();
+            }
+        }*/
         route.getPointOfInterestList().add(this);
     }
     public void deleteFromRoute(Route route){

@@ -5,6 +5,7 @@ import com.salesianostriana.dam.TrianaTourist.dto.Category.CreateCategoryDto;
 import com.salesianostriana.dam.TrianaTourist.dto.Category.GetCategoryDto;
 import com.salesianostriana.dam.TrianaTourist.model.Category;
 import com.salesianostriana.dam.TrianaTourist.service.CategoryService;
+import com.salesianostriana.dam.TrianaTourist.service.PointOfInterestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
     private final CategoryDtoConverter categoryDtoConverter;
+    private final PointOfInterestService pointOfInterestService;
 
     @GetMapping("/")
     public ResponseEntity<List<Category>> findAll(){
@@ -41,6 +43,8 @@ public class CategoryController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
+        Category category = categoryService.findOne(id).get();
+        category.nullearCategoriaDePoi(pointOfInterestService.findAll());
         categoryService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

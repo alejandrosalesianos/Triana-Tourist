@@ -9,9 +9,11 @@ import com.salesianostriana.dam.TrianaTourist.model.PointOfInterest;
 import com.salesianostriana.dam.TrianaTourist.model.Route;
 import com.salesianostriana.dam.TrianaTourist.service.PointOfInterestService;
 import com.salesianostriana.dam.TrianaTourist.service.RouteService;
+import com.salesianostriana.dam.TrianaTourist.validation.simple.UniquePoiInRoute;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/route")
+@Validated
 public class RouteController {
 
     private final RouteService routeService;
@@ -55,7 +58,7 @@ public class RouteController {
     }
 
     @PostMapping("/{id}/poi/{id2}")
-    public ResponseEntity<GetRouteDto> addPoi(@Valid @PathVariable("id")Long id, @PathVariable("id2")Long id2){
+    public ResponseEntity<GetRouteDto> addPoi( @PathVariable("id")Long id, @PathVariable("id2")Long id2){
         Route route = routeService.findOne(id).get();
         PointOfInterest poi= pointOfInterestService.findOne(id2).get();
         poi.addToRoute(route);
@@ -63,7 +66,7 @@ public class RouteController {
         return ResponseEntity.ok().body(routeDtoConverter.RouteToGetRouteDto(route));
     }
     @DeleteMapping("/{id}/poi/{id2}")
-    public ResponseEntity<GetRouteDto> deletePoi(@Valid @PathVariable("id")Long id, @PathVariable("id2")Long id2){
+    public ResponseEntity<GetRouteDto> deletePoi(@PathVariable("id")Long id, @Valid @PathVariable("id2")Long id2){
         Route route = routeService.findOne(id).get();
         PointOfInterest poi= pointOfInterestService.findOne(id2).get();
         poi.deleteFromRoute(route);

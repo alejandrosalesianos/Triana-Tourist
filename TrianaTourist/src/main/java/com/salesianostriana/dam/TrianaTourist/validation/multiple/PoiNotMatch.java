@@ -20,10 +20,4 @@ public @interface PoiNotMatch {
     String Photo2();
     String Photo3();
 
-    @Target({ ElementType.TYPE })
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        PoiNotMatch[] value();
-    }
-
 }

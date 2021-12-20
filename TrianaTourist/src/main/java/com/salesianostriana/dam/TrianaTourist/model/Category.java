@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PreRemove;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -18,4 +20,8 @@ public class Category implements Serializable {
     private Long id;
 
     private String name;
+
+    public void nullearCategoriaDePoi(List<PointOfInterest> pointOfInterestList){
+        pointOfInterestList.forEach(poi -> poi.setCategory(null));
+    }
 }

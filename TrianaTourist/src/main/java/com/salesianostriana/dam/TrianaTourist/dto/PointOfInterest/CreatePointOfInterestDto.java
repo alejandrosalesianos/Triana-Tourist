@@ -1,8 +1,6 @@
 package com.salesianostriana.dam.TrianaTourist.dto.PointOfInterest;
 
-import com.salesianostriana.dam.TrianaTourist.model.Category;
-import com.salesianostriana.dam.TrianaTourist.model.Route;
-import com.salesianostriana.dam.TrianaTourist.validation.multiple.PoiNotMatch;
+import com.salesianostriana.dam.TrianaTourist.validation.multiple.NoDuplicatePhoto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
-@PoiNotMatch(CoverPhoto = "coverPhoto",Photo2 = "photo2",Photo3 = "photo3")
+@NoDuplicatePhoto(photos = {"coverPhoto", "photo2", "photo3"})
 public class CreatePointOfInterestDto {
 
     @NotBlank
